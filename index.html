@@ -4,35 +4,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Happy Father's Day</title>
 
 <style>
 
 body {
   margin: 0;
-  padding: 0;
-  background: linear-gradient(135deg,#fdf6f0,#ffe4e1);
   font-family: Georgia, serif;
+  background: linear-gradient(135deg,#fdf6f0,#ffe4e1);
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
+/* container */
 .container {
   text-align: center;
+  width: 90%;
+  max-width: 900px;
 }
 
+/* envelope */
 .envelope {
   font-size: 90px;
-  margin-bottom: 25px;
+  transition: all 1s ease;
 }
 
-h1 {
-  margin-bottom: 20px;
+.envelope.open {
+  transform: translateY(-80px) scale(0.7);
+  opacity: 0;
 }
 
+/* button */
 button {
   padding: 15px 35px;
   font-size: 18px;
@@ -42,43 +47,65 @@ button {
   color: white;
   cursor: pointer;
   transition: 0.3s;
+  margin-top: 10px;
 }
 
 button:hover {
-  background: #b22222;
   transform: scale(1.05);
 }
 
+/* letter */
 .letter {
   display: none;
-  max-width: 800px;
-  margin-top: 30px;
-  padding: 50px;
+  margin-top: 25px;
+  padding: 40px;
   background: white;
   border-radius: 18px;
-  box-shadow: 0px 10px 35px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 35px rgba(0,0,0,0.2);
   text-align: left;
-  line-height: 1.9;
+  line-height: 1.8;
   font-size: 18px;
-  white-space: pre-line;
-  animation: fadeIn 2s ease;
+  white-space: pre-wrap; /* IMPORTANT for indentation */
+  animation: fadeIn 1.5s ease;
 }
 
-.letter img {
-  width: 100%;
-  border-radius: 12px;
-  margin-bottom: 20px;
-}
-
+/* fade animation */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* hearts */
+.heart {
+  position: fixed;
+  top: -10px;
+  color: red;
+  font-size: 20px;
+  animation: fall linear forwards;
+  pointer-events: none;
+}
+
+@keyframes fall {
   to {
-    opacity: 1;
-    transform: translateY(0);
+    transform: translateY(110vh);
+    opacity: 0;
   }
+}
+
+/* warning overlay */
+#warning {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 20px;
+  padding: 30px;
+  z-index: 999;
+  cursor: pointer;
 }
 
 </style>
@@ -86,58 +113,129 @@ button:hover {
 
 <body>
 
+<!-- MUSIC -->
 <audio id="bgMusic" src="Song.mp3" preload="auto"></audio>
+
+<!-- WARNING SCREEN -->
+<div id="warning">
+  🔊 This page contains background music<br><br>
+  Tap anywhere to continue
+</div>
 
 <div class="container">
 
-  <div class="envelope">💌</div>
+  <div class="envelope" id="envelope">💌</div>
 
   <h1>Happy Father's Day, Pa</h1>
 
   <button onclick="openLetter()">Click to Open</button>
-
   <p>
-    <img src="IMG.png" alt="Father's Day Image" style="width: 400px; margin-top: 30px; border-radius: 12px;">
+    <img src ="Images/IMG1.png" alt="Family Photo" style="margin-top: 20px; max-width: 75%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
   </p>
-
-
-  <div class="letter" id="letter">
-
-    Dear Pa,
-
-    Happy Father's Day!
-
-    Since childhood, you have always supported and guided us in every step of our lives. Thank you for being our strength and for constantly motivating us to become better versions of ourselves.
-
-    From teaching us mathematical tables to showing us how to study effectively and approach life with discipline, we now realise how valuable those lessons were in helping us grow from children into adults.
-
-    Thank you for always correcting us when we were wrong and guiding us toward the right path with patience and love.
-
-    You have been our shield, our motivation, and our biggest supporter through every stage of life.
-
-    We are incredibly grateful to have parents like you.
-
-    We love you very much.
-
-    With Love,  
-    KMT
-
-  </div>
+    <div class="letter" id="letter"></div>
 
 </div>
 
 <script>
-function openLetter() {
-  document.querySelector("button").style.display = "none";
 
-  const letter = document.getElementById("letter");
-  letter.style.display = "block";
+/* =========================
+   WARNING CLICK → START MUSIC
+========================= */
+document.getElementById("warning").addEventListener("click", function () {
+  this.style.display = "none";
 
   const music = document.getElementById("bgMusic");
-  music.play().catch(err => {
-    console.log("Audio blocked:", err);
-  });
+
+  // safe browser play
+  music.play().catch(() => {});
+
+  // fade in volume
+  music.volume = 0;
+  let v = 0;
+  const fade = setInterval(() => {
+    if (v < 1) {
+      v += 0.05;
+      music.volume = v;
+    } else {
+      clearInterval(fade);
+    }
+  }, 150);
+});
+
+/* =========================
+   LETTER TEXT (PRESERVES SPACING)
+========================= */
+const message = `Dear Pa,
+
+Happy Father's Day!
+
+Since childhood, you have always supported and guided us in every step of our lives. Thank you for being our strength and for constantly motivating us to become better versions of ourselves.
+
+From teaching us mathematical tables to showing us how to study effectively and approach life with discipline, we now realise how valuable those lessons were in helping us grow from children into adults. Thank you for always correcting us when we went wrong and guiding us toward the right path with patience and love.
+
+Thank you for always correcting us when we were wrong, even when we did not want to hear it at the time. Thank you for patiently guiding us back to the right path and for believing in our potential, even during moments when we doubted ourselves.
+
+You have always been our shield during difficult times, our source of motivation when we felt discouraged, and our biggest cheerleader through every achievement, no matter how small. You have carried responsibilities silently, made sacrifices without expecting recognition, and continued to check on us, support us, and stand beside us no matter how busy or challenging life became.
+
+Thank you, Mi and Pa, for raising us with so much love, patience, and dedication. Thank you for giving us opportunities, values, and a home filled with warmth and encouragement. Truly, you raised us to become more than we ever thought we could be. Whatever we achieve in life will always have your teachings, sacrifices, and unconditional love at its foundation.
+
+We are incredibly fortunate and grateful to have parents like you. To us, you both are the best parents in the world, and we can never thank you enough for everything you have done and continue to do for us.
+
+We love you very much.
+
+With Love,
+KMT`;
+
+/* =========================
+   TYPEWRITER WITH INDENTATION
+========================= */
+let i = 0;
+
+function typeWriter() {
+  const letter = document.getElementById("letter");
+
+  if (i === 0) {
+    letter.style.display = "block";
+  }
+
+  if (i < message.length) {
+    letter.innerHTML += message.charAt(i);
+    i++;
+    setTimeout(typeWriter, 25);
+  }
 }
+
+/* =========================
+   HEARTS
+========================= */
+function startHearts() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (10 + Math.random() * 20) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+  }, 300);
+}
+
+/* =========================
+   OPEN LETTER
+========================= */
+function openLetter() {
+
+  document.querySelector("button").style.display = "none";
+
+  const envelope = document.getElementById("envelope");
+  envelope.classList.add("open");
+
+  typeWriter();
+  startHearts();
+}
+
 </script>
 
 </body>
