@@ -65,7 +65,7 @@ button:hover {
   text-align: left;
   line-height: 1.8;
   font-size: 18px;
-  white-space: pre-wrap; /* IMPORTANT for indentation */
+  white-space: pre-wrap;
   animation: fadeIn 1.5s ease;
 }
 
@@ -75,14 +75,14 @@ button:hover {
   to {opacity: 1; transform: translateY(0);}
 }
 
-/* hearts */
 .heart {
   position: fixed;
-  top: -10px;
+  top: -20px;
   color: red;
   font-size: 20px;
-  animation: fall linear forwards;
+  animation: fall 5s linear forwards;
   pointer-events: none;
+  z-index: 9999;
 }
 
 @keyframes fall {
@@ -108,13 +108,50 @@ button:hover {
   cursor: pointer;
 }
 
+/* ─── NEW: extra images below the letter ─── */
+.extra-images {
+  display: none; /* hidden until letter appears */
+  margin-top: 30px;
+  padding: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  animation: fadeIn 1.5s ease;
+}
+
+.extra-images img {
+  max-width: 180px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+  object-fit: cover;
+  width: 100%;
+}
+
+.extra-images img:hover {
+  transform: scale(1.05);
+}
+
+/* responsive */
+@media (max-width: 600px) {
+  .extra-images img {
+    max-width: 130px;
+  }
+}
+@media (max-width: 400px) {
+  .extra-images img {
+    max-width: 100px;
+  }
+}
+
 </style>
 </head>
 
 <body>
 
 <!-- MUSIC -->
-<audio id="bgMusic" src="Song.mp3" preload="auto"></audio>
+<audio id="bgMusic" src="Songs.mp3.mov" preload="auto"></audio>
 
 <!-- WARNING SCREEN -->
 <div id="warning">
@@ -129,10 +166,34 @@ button:hover {
   <h1>Happy Father's Day, Pa</h1>
 
   <button onclick="openLetter()">Click to Open</button>
-  <p>
-    <img src ="Images/IMG1.png" alt="Family Photo" style="margin-top: 20px; max-width: 75%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-  </p>
-    <div class="letter" id="letter"></div>
+  <div class ="button-images">
+    <p>
+    <img src="Images/IMG4.jpg" alt="IMG5" style="margin-top: 10px; max-width: 35%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);"></p>
+    <p>
+    <img src ="Images/IMG1.png" alt="Family Photo" style="margin-top: 20px; max-width: 40%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+  
+    <img src="Images/IMG2.jpg" alt="IMG2" style="margin-top: 20px; max-width: 53%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" >
+    </p>
+  </div>
+  <div class="letter" id="letter"></div>
+
+  <!-- ─── NEW: images below the letter (IMG2–IMG5) ─── -->
+  <div class="extra-images" id="extraImages">
+
+    <!-- IMG3
+    <div class="img-block">
+      <img src="Images/IMG3.jpg" alt="IMG3" style="height: 500px;">
+    </div> -->
+
+    <!-- IMG4 -->
+    <div class="img-block">
+      <img src="Images/IMG5.jpg" alt="IMG4" style="width: 700px; height: 300px;">
+    </div>
+
+    <!-- IMG5 -->
+    <div class="img-block">
+      <img src="Images/IMG3.jpg" alt="IMG5" style="width: 500px; height: 300px;">
+    </div>
 
 </div>
 
@@ -196,12 +257,14 @@ function typeWriter() {
 
   if (i === 0) {
     letter.style.display = "block";
+    // also show the extra images
+    document.getElementById("extraImages").style.display = "flex";
   }
 
   if (i < message.length) {
     letter.innerHTML += message.charAt(i);
     i++;
-    setTimeout(typeWriter, 25);
+    setTimeout(typeWriter, 40);
   }
 }
 
