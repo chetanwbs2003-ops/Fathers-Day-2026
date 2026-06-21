@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+
+body{
+background:#f7f7f7;
+text-align:center;
+padding-top:100px;
+font-family:Arial;
+}
+
+#letter{
+display:none;
+max-width:700px;
+margin:auto;
+padding:30px;
+background:white;
+border-radius:15px;
+box-shadow:0 0 20px gray;
+}
+
+button{
+padding:15px 30px;
+font-size:18px;
+border:none;
+background:#ff4d6d;
+color:white;
+border-radius:10px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🎁 Father's Day Surprise</h1>
+
+<button onclick="showLetter()">
+Open My Letter ❤️
+</button>
+
+<div id="letter">
+
+<p>
+Put your entire Father's Day message here.
+</p>
+
+</div>
+
+<script>
+
+function showLetter(){
+
+document.getElementById("letter").style.display="block";
+
+}
+
+</script>
+
+</body>
+
+</html>
