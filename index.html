@@ -1,57 +1,174 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Father's Day</title>
+
 <style>
 
 body{
-background:#f7f7f7;
-text-align:center;
-padding-top:100px;
-font-family:Arial;
+
+margin:0;
+padding:0;
+
+background:linear-gradient(135deg,#fdf6f0,#ffe4e1);
+
+font-family: Georgia, serif;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+min-height:100vh;
+
 }
 
-#letter{
-display:none;
-max-width:700px;
-margin:auto;
-padding:30px;
-background:white;
-border-radius:15px;
-box-shadow:0 0 20px gray;
+
+.container{
+
+text-align:center;
+
 }
+
 
 button{
-padding:15px 30px;
+
+padding:15px 35px;
+
 font-size:18px;
+
 border:none;
-background:#ff4d6d;
+
+border-radius:12px;
+
+background:#d62828;
+
 color:white;
-border-radius:10px;
+
 cursor:pointer;
+
+transition:0.3s;
+
 }
 
+
+button:hover{
+
+background:#b22222;
+
+transform:scale(1.05);
+
+}
+
+
+.letter{
+
+display:none;
+
+max-width:800px;
+
+margin-top:30px;
+
+padding:50px;
+
+background:white;
+
+border-radius:18px;
+
+box-shadow:0px 10px 35px rgba(0,0,0,0.2);
+
+text-align:left;
+
+line-height:1.9;
+
+font-size:18px;
+
+white-space:pre-line;
+
+animation:fadeIn 2s ease;
+
+}
+
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+transform:translateY(30px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
+
+.title{
+
+font-size:34px;
+
+margin-bottom:20px;
+
+}
+
+
+.envelope{
+
+font-size:90px;
+
+margin-bottom:25px;
+
+}
+
+
 </style>
+
+
 </head>
+
 
 <body>
 
-<h1>Happy Father's Day Surprise </h1>
 
-<button onclick="showLetter()">
+<div class="container">
+
+
+<div class="envelope">
+💌
+</div>
+
+
+<h1>Happy Father's Day, Pa</h1>
+
+<button onclick="openLetter()">
 Click to Open
 </button>
 
-<div id="letter">
 
-<p>
-Dear Pa, 
+
+
+<div class="letter" id="letter">
+
+
+Dear Pa,
+
 Happy Father's Day!
+
 Since childhood, you have always supported and guided us in every step of our lives. Thank you for being our strength and for constantly motivating us to become better versions of ourselves.
 
 From teaching us mathematical tables to showing us how to study effectively and approach life with discipline, we now realise how valuable those lessons were in helping us grow from children into adults. Thank you for always correcting us when we went wrong and guiding us toward the right path with patience and love.
 
-Thank you for always correcting us when we were wrong, even when we did not want to hear it at the time. Thank you for patiently guiding us back to the right path and for believing in our potential, even during moments when we doubted ourselves. 
+Thank you for always correcting us when we were wrong, even when we did not want to hear it at the time. Thank you for patiently guiding us back to the right path and for believing in our potential, even during moments when we doubted ourselves.
 
 You have always been our shield during difficult times, our source of motivation when we felt discouraged, and our biggest cheerleader through every achievement, no matter how small. You have carried responsibilities silently, made sacrifices without expecting recognition, and continued to check on us, support us, and stand beside us no matter how busy or challenging life became.
 
@@ -59,24 +176,44 @@ Thank you, Mi and Pa, for raising us with so much love, patience, and dedication
 
 We are incredibly fortunate and grateful to have parents like you. To us, you both are the best parents in the world, and we can never thank you enough for everything you have done and continue to do for us.
 
-We love you very much. 
+We love you very much.
 
-With Love, 
+
+With Love,
+
 KMT
-</p>
+
 
 </div>
 
+
+</div>
+
+
+
 <script>
 
-function showLetter(){
+function openLetter(){
 
 document.getElementById("letter").style.display="block";
 
+window.scrollTo({
+
+top:document.body.scrollHeight,
+
+behavior:"smooth"
+
+});
+
 }
+
 
 </script>
 
+
+
 </body>
 
+
 </html>
+
