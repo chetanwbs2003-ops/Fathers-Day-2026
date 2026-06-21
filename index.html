@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,210 +9,136 @@
 
 <style>
 
-body{
-
-margin:0;
-padding:0;
-
-background:linear-gradient(135deg,#fdf6f0,#ffe4e1);
-
-font-family: Georgia, serif;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-min-height:100vh;
-
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg,#fdf6f0,#ffe4e1);
+  font-family: Georgia, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
-
-.container{
-
-text-align:center;
-
+.container {
+  text-align: center;
 }
 
-
-button{
-
-padding:15px 35px;
-
-font-size:18px;
-
-border:none;
-
-border-radius:12px;
-
-background:#d62828;
-
-color:white;
-
-cursor:pointer;
-
-transition:0.3s;
-
+.envelope {
+  font-size: 90px;
+  margin-bottom: 25px;
 }
 
-
-button:hover{
-
-background:#b22222;
-
-transform:scale(1.05);
-
+h1 {
+  margin-bottom: 20px;
 }
 
-
-.letter{
-
-display:none;
-
-max-width:800px;
-
-margin-top:30px;
-
-padding:50px;
-
-background:white;
-
-border-radius:18px;
-
-box-shadow:0px 10px 35px rgba(0,0,0,0.2);
-
-text-align:left;
-
-line-height:1.9;
-
-font-size:18px;
-
-white-space:pre-line;
-
-animation:fadeIn 2s ease;
-
+button {
+  padding: 15px 35px;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  background: #d62828;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-
-@keyframes fadeIn{
-
-from{
-
-opacity:0;
-transform:translateY(30px);
-
+button:hover {
+  background: #b22222;
+  transform: scale(1.05);
 }
 
-to{
-
-opacity:1;
-transform:translateY(0);
-
+.letter {
+  display: none;
+  max-width: 800px;
+  margin-top: 30px;
+  padding: 50px;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0px 10px 35px rgba(0,0,0,0.2);
+  text-align: left;
+  line-height: 1.9;
+  font-size: 18px;
+  white-space: pre-line;
+  animation: fadeIn 2s ease;
 }
 
+.letter img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 20px;
 }
 
-
-.title{
-
-font-size:34px;
-
-margin-bottom:20px;
-
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-
-
-.envelope{
-
-font-size:90px;
-
-margin-bottom:25px;
-
-}
-
 
 </style>
-
-
 </head>
-
 
 <body>
 
+<audio id="bgMusic" src="Song.mp3" preload="auto"></audio>
 
 <div class="container">
 
+  <div class="envelope">💌</div>
 
-<div class="envelope">
-💌
-</div>
+  <h1>Happy Father's Day, Pa</h1>
 
+  <button onclick="openLetter()">Click to Open</button>
 
-<h1>Happy Father's Day, Pa</h1>
-
-<button onclick="openLetter()">
-Click to Open
-</button>
+  <p>
+    <img src="IMG.png" alt="Father's Day Image" style="width: 400px; margin-top: 30px; border-radius: 12px;">
+  </p>
 
 
+  <div class="letter" id="letter">
 
+    Dear Pa,
 
-<div class="letter" id="letter">
+    Happy Father's Day!
 
+    Since childhood, you have always supported and guided us in every step of our lives. Thank you for being our strength and for constantly motivating us to become better versions of ourselves.
 
-Dear Pa,
+    From teaching us mathematical tables to showing us how to study effectively and approach life with discipline, we now realise how valuable those lessons were in helping us grow from children into adults.
 
-Happy Father's Day!
+    Thank you for always correcting us when we were wrong and guiding us toward the right path with patience and love.
 
-Since childhood, you have always supported and guided us in every step of our lives. Thank you for being our strength and for constantly motivating us to become better versions of ourselves.
+    You have been our shield, our motivation, and our biggest supporter through every stage of life.
 
-From teaching us mathematical tables to showing us how to study effectively and approach life with discipline, we now realise how valuable those lessons were in helping us grow from children into adults. Thank you for always correcting us when we went wrong and guiding us toward the right path with patience and love.
+    We are incredibly grateful to have parents like you.
 
-Thank you for always correcting us when we were wrong, even when we did not want to hear it at the time. Thank you for patiently guiding us back to the right path and for believing in our potential, even during moments when we doubted ourselves.
+    We love you very much.
 
-You have always been our shield during difficult times, our source of motivation when we felt discouraged, and our biggest cheerleader through every achievement, no matter how small. You have carried responsibilities silently, made sacrifices without expecting recognition, and continued to check on us, support us, and stand beside us no matter how busy or challenging life became.
+    With Love,  
+    KMT
 
-Thank you, Mi and Pa, for raising us with so much love, patience, and dedication. Thank you for giving us opportunities, values, and a home filled with warmth and encouragement. Truly, you raised us to become more than we ever thought we could be. Whatever we achieve in life will always have your teachings, sacrifices, and unconditional love at its foundation.
-
-We are incredibly fortunate and grateful to have parents like you. To us, you both are the best parents in the world, and we can never thank you enough for everything you have done and continue to do for us.
-
-We love you very much.
-
-
-With Love,
-
-KMT
-
+  </div>
 
 </div>
-
-
-</div>
-
-
 
 <script>
+function openLetter() {
+  document.querySelector("button").style.display = "none";
 
-function openLetter(){
+  const letter = document.getElementById("letter");
+  letter.style.display = "block";
 
-document.getElementById("letter").style.display="block";
-
-window.scrollTo({
-
-top:document.body.scrollHeight,
-
-behavior:"smooth"
-
-});
-
+  const music = document.getElementById("bgMusic");
+  music.play().catch(err => {
+    console.log("Audio blocked:", err);
+  });
 }
-
-
 </script>
 
-
-
 </body>
-
-
 </html>
-
